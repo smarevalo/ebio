@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 4.6.6deb5
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 13-03-2019 a las 10:39:47
--- Versión del servidor: 5.7.23
--- Versión de PHP: 7.2.10
+-- Servidor: localhost:3306
+-- Tiempo de generación: 13-03-2019 a las 08:45:16
+-- Versión del servidor: 5.7.25-0ubuntu0.18.04.2
+-- Versión de PHP: 7.2.15-0ubuntu0.18.04.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -28,14 +26,11 @@ SET time_zone = "+00:00";
 -- Estructura de tabla para la tabla `asignatura`
 --
 
-DROP TABLE IF EXISTS `asignatura`;
-CREATE TABLE IF NOT EXISTS `asignatura` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `asignatura` (
+  `id` int(11) NOT NULL,
   `nombre` varchar(50) DEFAULT NULL,
-  `tipo_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `tipo_id` (`tipo_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED;
+  `tipo_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED;
 
 --
 -- Volcado de datos para la tabla `asignatura`
@@ -77,10 +72,10 @@ INSERT INTO `asignatura` (`id`, `nombre`, `tipo_id`) VALUES
 (33, 'Estructura de las macromoléculas', 1),
 (34, 'Fisiología animal comparada ', 1),
 (35, 'Ecología microbiana', 1),
-(36, 'Mat. de or. Optativa', 1),
-(37, 'Mat. de or. Optativa', 1),
+(36, 'Mat. de or. Optativa', 2),
+(37, 'Mat. de or. Optativa', 2),
 (38, 'Trabajo Final', 1),
-(39, 'Mat. de or. Optativa', 1);
+(39, 'Mat. de or. Optativa', 2);
 
 -- --------------------------------------------------------
 
@@ -88,12 +83,10 @@ INSERT INTO `asignatura` (`id`, `nombre`, `tipo_id`) VALUES
 -- Estructura de tabla para la tabla `asignatura_tipo`
 --
 
-DROP TABLE IF EXISTS `asignatura_tipo`;
-CREATE TABLE IF NOT EXISTS `asignatura_tipo` (
+CREATE TABLE `asignatura_tipo` (
   `id` int(11) NOT NULL,
-  `nombre` varchar(80) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `nombre` varchar(80) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `asignatura_tipo`
@@ -109,17 +102,15 @@ INSERT INTO `asignatura_tipo` (`id`, `nombre`) VALUES
 -- Estructura de tabla para la tabla `carrera`
 --
 
-DROP TABLE IF EXISTS `carrera`;
-CREATE TABLE IF NOT EXISTS `carrera` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `carrera` (
+  `id` int(11) NOT NULL,
   `plan` varchar(20) DEFAULT NULL,
   `nombre` varchar(80) DEFAULT NULL,
   `presentacion` blob,
   `perfil` blob,
   `plan_pdf` varchar(50) DEFAULT NULL,
-  `imagen` varchar(100) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED;
+  `imagen` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED;
 
 --
 -- Volcado de datos para la tabla `carrera`
@@ -134,12 +125,10 @@ INSERT INTO `carrera` (`id`, `plan`, `nombre`, `presentacion`, `perfil`, `plan_p
 -- Estructura de tabla para la tabla `categoria`
 --
 
-DROP TABLE IF EXISTS `categoria`;
-CREATE TABLE IF NOT EXISTS `categoria` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `descripcion` varchar(30) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED;
+CREATE TABLE `categoria` (
+  `id` int(11) NOT NULL,
+  `descripcion` varchar(30) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED;
 
 -- --------------------------------------------------------
 
@@ -147,8 +136,7 @@ CREATE TABLE IF NOT EXISTS `categoria` (
 -- Estructura de tabla para la tabla `ci_sessions`
 --
 
-DROP TABLE IF EXISTS `ci_sessions`;
-CREATE TABLE IF NOT EXISTS `ci_sessions` (
+CREATE TABLE `ci_sessions` (
   `id` varchar(40) NOT NULL,
   `ip_address` varchar(45) NOT NULL,
   `timestamp` int(10) UNSIGNED NOT NULL DEFAULT '0',
@@ -161,14 +149,10 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 -- Estructura de tabla para la tabla `correlatividad`
 --
 
-DROP TABLE IF EXISTS `correlatividad`;
-CREATE TABLE IF NOT EXISTS `correlatividad` (
+CREATE TABLE `correlatividad` (
   `id` int(11) DEFAULT NULL,
   `correlativade` int(11) DEFAULT NULL,
-  `tipo` int(11) DEFAULT NULL,
-  KEY `correlativa_tipoCorrelativa_idx` (`tipo`),
-  KEY `correlatividad_correlativa_de_idx` (`correlativade`),
-  KEY `correlativa_plan` (`id`)
+  `tipo` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED;
 
 -- --------------------------------------------------------
@@ -177,16 +161,12 @@ CREATE TABLE IF NOT EXISTS `correlatividad` (
 -- Estructura de tabla para la tabla `docente`
 --
 
-DROP TABLE IF EXISTS `docente`;
-CREATE TABLE IF NOT EXISTS `docente` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `docente` (
+  `id` int(10) NOT NULL,
   `persona_id` bigint(20) NOT NULL,
   `categoria` int(11) DEFAULT NULL,
-  `descripcion` blob,
-  PRIMARY KEY (`id`),
-  KEY `docente_categoria_idx` (`categoria`),
-  KEY `persona_id` (`persona_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED;
+  `descripcion` blob
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED;
 
 -- --------------------------------------------------------
 
@@ -194,13 +174,10 @@ CREATE TABLE IF NOT EXISTS `docente` (
 -- Estructura de tabla para la tabla `equipo`
 --
 
-DROP TABLE IF EXISTS `equipo`;
-CREATE TABLE IF NOT EXISTS `equipo` (
+CREATE TABLE `equipo` (
   `id` int(11) DEFAULT NULL,
   `id_docente` int(11) DEFAULT NULL,
-  `acargo` tinyint(1) DEFAULT NULL,
-  KEY `idMateria` (`id`),
-  KEY `idDocente` (`id_docente`)
+  `acargo` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED;
 
 -- --------------------------------------------------------
@@ -209,8 +186,7 @@ CREATE TABLE IF NOT EXISTS `equipo` (
 -- Estructura de tabla para la tabla `estudiantes`
 --
 
-DROP TABLE IF EXISTS `estudiantes`;
-CREATE TABLE IF NOT EXISTS `estudiantes` (
+CREATE TABLE `estudiantes` (
   `id` int(11) NOT NULL,
   `persona_id` bigint(20) NOT NULL,
   `legajo` varchar(50) NOT NULL,
@@ -223,12 +199,10 @@ CREATE TABLE IF NOT EXISTS `estudiantes` (
 -- Estructura de tabla para la tabla `grupos`
 --
 
-DROP TABLE IF EXISTS `grupos`;
-CREATE TABLE IF NOT EXISTS `grupos` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `grupos` (
+  `id` int(11) NOT NULL,
   `nombre` varchar(50) NOT NULL,
-  `abreviacion` varchar(20) NOT NULL,
-  PRIMARY KEY (`id`)
+  `abreviacion` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -237,13 +211,9 @@ CREATE TABLE IF NOT EXISTS `grupos` (
 -- Estructura de tabla para la tabla `grupo_permiso`
 --
 
-DROP TABLE IF EXISTS `grupo_permiso`;
-CREATE TABLE IF NOT EXISTS `grupo_permiso` (
+CREATE TABLE `grupo_permiso` (
   `grupo_id` int(11) NOT NULL,
-  `permiso_id` int(11) NOT NULL,
-  PRIMARY KEY (`grupo_id`,`permiso_id`),
-  KEY `permiso_id_grupo` (`permiso_id`),
-  KEY `grupo_id` (`grupo_id`)
+  `permiso_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -252,11 +222,18 @@ CREATE TABLE IF NOT EXISTS `grupo_permiso` (
 -- Estructura de tabla para la tabla `orientacion`
 --
 
-DROP TABLE IF EXISTS `orientacion`;
-CREATE TABLE IF NOT EXISTS `orientacion` (
+CREATE TABLE `orientacion` (
   `id` int(11) NOT NULL,
   `nombre` varchar(80) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `orientacion`
+--
+
+INSERT INTO `orientacion` (`id`, `nombre`) VALUES
+(1, 'Ecología'),
+(2, 'Ambiente y Biotecnología');
 
 -- --------------------------------------------------------
 
@@ -264,12 +241,10 @@ CREATE TABLE IF NOT EXISTS `orientacion` (
 -- Estructura de tabla para la tabla `permisos`
 --
 
-DROP TABLE IF EXISTS `permisos`;
-CREATE TABLE IF NOT EXISTS `permisos` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `permisos` (
+  `id` int(11) NOT NULL,
   `nombre` varchar(100) NOT NULL,
-  `descripcion` varchar(150) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `descripcion` varchar(150) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -278,18 +253,16 @@ CREATE TABLE IF NOT EXISTS `permisos` (
 -- Estructura de tabla para la tabla `persona`
 --
 
-DROP TABLE IF EXISTS `persona`;
-CREATE TABLE IF NOT EXISTS `persona` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `persona` (
+  `id` bigint(20) NOT NULL,
   `apellido` varchar(50) NOT NULL,
   `nombre` varchar(50) NOT NULL,
   `nombre_2` varchar(50) DEFAULT NULL,
   `dni` varchar(50) DEFAULT NULL,
   `cuit` varchar(50) DEFAULT NULL,
   `email1` varchar(50) DEFAULT NULL,
-  `email2` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+  `email2` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `persona`
@@ -304,9 +277,8 @@ INSERT INTO `persona` (`id`, `apellido`, `nombre`, `nombre_2`, `dni`, `cuit`, `e
 -- Estructura de tabla para la tabla `plan`
 --
 
-DROP TABLE IF EXISTS `plan`;
-CREATE TABLE IF NOT EXISTS `plan` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `plan` (
+  `id` int(11) NOT NULL,
   `id_carrera` int(11) NOT NULL,
   `id_asignatura` int(11) NOT NULL,
   `anio` int(11) DEFAULT NULL,
@@ -316,10 +288,8 @@ CREATE TABLE IF NOT EXISTS `plan` (
   `horas_segundo_cuat` int(11) DEFAULT NULL,
   `horas_anuales` int(11) DEFAULT NULL,
   `programa` varchar(150) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `plan_carrera_idx` (`id_carrera`),
-  KEY `Plan_materia_idx` (`id_asignatura`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED;
+  `id_orientacion` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED;
 
 -- --------------------------------------------------------
 
@@ -327,11 +297,10 @@ CREATE TABLE IF NOT EXISTS `plan` (
 -- Estructura de tabla para la tabla `plan_optativas`
 --
 
-DROP TABLE IF EXISTS `plan_optativas`;
-CREATE TABLE IF NOT EXISTS `plan_optativas` (
+CREATE TABLE `plan_optativas` (
   `id_plan` int(11) NOT NULL,
   `id_optativa` int(11) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -339,12 +308,10 @@ CREATE TABLE IF NOT EXISTS `plan_optativas` (
 -- Estructura de tabla para la tabla `tipo_correlatividad`
 --
 
-DROP TABLE IF EXISTS `tipo_correlatividad`;
-CREATE TABLE IF NOT EXISTS `tipo_correlatividad` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `descripcion` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED;
+CREATE TABLE `tipo_correlatividad` (
+  `id` int(11) NOT NULL,
+  `descripcion` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED;
 
 -- --------------------------------------------------------
 
@@ -352,9 +319,8 @@ CREATE TABLE IF NOT EXISTS `tipo_correlatividad` (
 -- Estructura de tabla para la tabla `users`
 --
 
-DROP TABLE IF EXISTS `users`;
-CREATE TABLE IF NOT EXISTS `users` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
   `username` varchar(255) NOT NULL DEFAULT '',
   `password` varchar(255) NOT NULL DEFAULT '',
   `persona_id` bigint(20) NOT NULL,
@@ -363,11 +329,8 @@ CREATE TABLE IF NOT EXISTS `users` (
   `updated_at` datetime DEFAULT NULL,
   `is_admin` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
   `is_confirmed` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
-  `is_deleted` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`),
-  KEY `persona_id` (`persona_id`),
-  KEY `persona_id_2` (`persona_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+  `is_deleted` tinyint(1) UNSIGNED NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `users`
@@ -382,13 +345,9 @@ INSERT INTO `users` (`id`, `username`, `password`, `persona_id`, `avatar`, `crea
 -- Estructura de tabla para la tabla `user_grupo`
 --
 
-DROP TABLE IF EXISTS `user_grupo`;
-CREATE TABLE IF NOT EXISTS `user_grupo` (
+CREATE TABLE `user_grupo` (
   `user_id` int(11) NOT NULL,
-  `grupo_id` int(11) NOT NULL,
-  PRIMARY KEY (`user_id`,`grupo_id`),
-  KEY `grupo_id_user` (`grupo_id`),
-  KEY `user_id` (`user_id`)
+  `grupo_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -397,17 +356,208 @@ CREATE TABLE IF NOT EXISTS `user_grupo` (
 -- Estructura de tabla para la tabla `user_permiso`
 --
 
-DROP TABLE IF EXISTS `user_permiso`;
-CREATE TABLE IF NOT EXISTS `user_permiso` (
+CREATE TABLE `user_permiso` (
   `user_id` int(11) NOT NULL,
-  `permiso_id` int(11) NOT NULL,
-  KEY `user_id_permiso` (`user_id`),
-  KEY `permiso_id_user` (`permiso_id`)
+  `permiso_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `asignatura`
+--
+ALTER TABLE `asignatura`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `tipo_id` (`tipo_id`);
+
+--
+-- Indices de la tabla `asignatura_tipo`
+--
+ALTER TABLE `asignatura_tipo`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `carrera`
+--
+ALTER TABLE `carrera`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `categoria`
+--
+ALTER TABLE `categoria`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `correlatividad`
+--
+ALTER TABLE `correlatividad`
+  ADD KEY `correlativa_tipoCorrelativa_idx` (`tipo`),
+  ADD KEY `correlatividad_correlativa_de_idx` (`correlativade`),
+  ADD KEY `correlativa_plan` (`id`);
+
+--
+-- Indices de la tabla `docente`
+--
+ALTER TABLE `docente`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `docente_categoria_idx` (`categoria`),
+  ADD KEY `persona_id` (`persona_id`);
+
+--
+-- Indices de la tabla `equipo`
+--
+ALTER TABLE `equipo`
+  ADD KEY `idMateria` (`id`),
+  ADD KEY `idDocente` (`id_docente`);
+
+--
+-- Indices de la tabla `grupos`
+--
+ALTER TABLE `grupos`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `grupo_permiso`
+--
+ALTER TABLE `grupo_permiso`
+  ADD PRIMARY KEY (`grupo_id`,`permiso_id`),
+  ADD KEY `permiso_id_grupo` (`permiso_id`),
+  ADD KEY `grupo_id` (`grupo_id`);
+
+--
+-- Indices de la tabla `orientacion`
+--
+ALTER TABLE `orientacion`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `permisos`
+--
+ALTER TABLE `permisos`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `persona`
+--
+ALTER TABLE `persona`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `plan`
+--
+ALTER TABLE `plan`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `plan_carrera_idx` (`id_carrera`),
+  ADD KEY `Plan_materia_idx` (`id_asignatura`),
+  ADD KEY `id_orientacion` (`id_orientacion`);
+
+--
+-- Indices de la tabla `plan_optativas`
+--
+ALTER TABLE `plan_optativas`
+  ADD KEY `id_plan` (`id_plan`),
+  ADD KEY `id_optativa` (`id_optativa`);
+
+--
+-- Indices de la tabla `tipo_correlatividad`
+--
+ALTER TABLE `tipo_correlatividad`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `persona_id` (`persona_id`),
+  ADD KEY `persona_id_2` (`persona_id`);
+
+--
+-- Indices de la tabla `user_grupo`
+--
+ALTER TABLE `user_grupo`
+  ADD PRIMARY KEY (`user_id`,`grupo_id`),
+  ADD KEY `grupo_id_user` (`grupo_id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
+-- Indices de la tabla `user_permiso`
+--
+ALTER TABLE `user_permiso`
+  ADD KEY `user_id_permiso` (`user_id`),
+  ADD KEY `permiso_id_user` (`permiso_id`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `asignatura`
+--
+ALTER TABLE `asignatura`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+--
+-- AUTO_INCREMENT de la tabla `asignatura_tipo`
+--
+ALTER TABLE `asignatura_tipo`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT de la tabla `carrera`
+--
+ALTER TABLE `carrera`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT de la tabla `categoria`
+--
+ALTER TABLE `categoria`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT de la tabla `docente`
+--
+ALTER TABLE `docente`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+--
+-- AUTO_INCREMENT de la tabla `grupos`
+--
+ALTER TABLE `grupos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `permisos`
+--
+ALTER TABLE `permisos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `persona`
+--
+ALTER TABLE `persona`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT de la tabla `plan`
+--
+ALTER TABLE `plan`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+--
+-- AUTO_INCREMENT de la tabla `tipo_correlatividad`
+--
+ALTER TABLE `tipo_correlatividad`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT de la tabla `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `asignatura`
+--
+ALTER TABLE `asignatura`
+  ADD CONSTRAINT `asignatura_tipo` FOREIGN KEY (`tipo_id`) REFERENCES `asignatura_tipo` (`id`);
 
 --
 -- Filtros para la tabla `correlatividad`
@@ -446,6 +596,13 @@ ALTER TABLE `plan`
   ADD CONSTRAINT `plan_carrera` FOREIGN KEY (`id_carrera`) REFERENCES `carrera` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
+-- Filtros para la tabla `plan_optativas`
+--
+ALTER TABLE `plan_optativas`
+  ADD CONSTRAINT `optativa_asignatura` FOREIGN KEY (`id_optativa`) REFERENCES `plan` (`id`),
+  ADD CONSTRAINT `plan_optativa` FOREIGN KEY (`id_plan`) REFERENCES `plan` (`id`);
+
+--
 -- Filtros para la tabla `users`
 --
 ALTER TABLE `users`
@@ -464,7 +621,6 @@ ALTER TABLE `user_grupo`
 ALTER TABLE `user_permiso`
   ADD CONSTRAINT `permiso_id_user` FOREIGN KEY (`permiso_id`) REFERENCES `permisos` (`id`),
   ADD CONSTRAINT `user_id_permiso` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
