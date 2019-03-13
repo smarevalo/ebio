@@ -1,0 +1,145 @@
+html {
+	min-height: 100%;
+	position: relative;
+}
+body {
+	margin: 0;
+	margin-bottom: 40px;
+}
+
+/* Footer */
+
+footer {
+	position: absolute;
+	margin-top:50;
+  bottom: 0;
+  width: 100%;
+  height: 40px;
+	color: white;
+  margin-bottom: 0;
+}
+
+
+#footer {
+	background-color:#066734;
+}
+  
+#footer p {
+  color:white;
+  font-weight: bold;
+}
+
+.margen-inf {
+  margin-bottom: 20px;
+}
+
+/* Fin Footer */
+
+
+/* Login */
+
+.form-signin {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+.form-signin .checkbox {
+  font-weight: 400;
+}
+.form-signin .form-control {
+  position: relative;
+  box-sizing: border-box;
+  height: auto;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+/* Fin Login */
+
+
+.extra-margins {
+	margin-top: 1rem;
+	margin-bottom: 2.5rem;
+}
+
+.jumbotron {
+	text-align: center;
+}
+
+.nav-link {
+  color: #fff;
+  font-weight: bold;
+}
+
+.nav-item {
+  color: #fff;
+}
+
+.nav-link-carrera {
+  color: rgb(0, 123, 255);
+  font-weight: bold;
+}
+
+
+.navbar .btn-group .dropdown-menu a:hover {
+	color: #000 !important;
+}
+.navbar .btn-group .dropdown-menu a:active {
+	color: #fff !important;
+}
+
+.sombreado {
+	box-shadow: 10px 10px 5px grey;
+	border-style: ridge;
+}
+
+.table-hover>tbody>tr:hover>td, .table-hover>tbody>tr:hover>th {
+	background-color: #abb2b9;
+	color:#eeeefe;
+}
+
+
+.card {
+  margin: 0 auto; 
+  float: none; 
+  margin-bottom: 10px; 
+}
+.pointer {
+  cursor: pointer;
+}
+
+.align-items-center {
+      -ms-flex-align: center!important;
+      align-items: center!important;
+}
+
+.d-flex {
+  display: -ms-flexbox!important;
+  display: flex!important;
+}
+
+.bg-escuela {
+  background-color: #066734;
+} 
+
+.navbar-escuela {
+  background-color: #066734;
+} 
+
+.thead-escuela {
+  background-color: #E5CDB1;
+}

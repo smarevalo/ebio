@@ -1,0 +1,18 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On 
+    RewriteCond %{REQUEST_FILENAME} !-f 
+    RewriteCond %{REQUEST_FILENAME} !-d 
+    RewriteRule ^(.*)$ /ebio/index.php/$1 [L] 
+
+	#Redirección a login
+	RedirectMatch 301 ^/ebio/login$ http://localhost/ebio/user/login
+</IfModule>
+
+<IfModule !mod_rewrite.c>
+    ErrorDocument 404 /ebio/index.php 
+</IfModule>
+
+<IfModule mod_php5.c>
+	RewriteRule ^(.*)$ index.php/$1 [L]
+</IfModule>
+

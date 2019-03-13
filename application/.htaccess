@@ -1,0 +1,3 @@
+
+RewriteRule ^(.*)$ eticPHP/index.php/$1 [L]
+ErrorDocument 404 eticPHP/index.php
