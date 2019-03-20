@@ -1,18 +1,52 @@
 <main>
+	<b><a href="<?= base_url('/carrera/verCarrera/'.$materia[0]->id_carrera)?>">Volver al plan</a></b>
 	<ul class="nav nav-tabs nav-justified">
 		<li class="nav-item">
 			<h1>Asignatura</h1>
 		</li>
 	</ul>
 
+	<!-- Materias Genericas -->
+	<?php if($materia[0]->id_tipo == '2'){ ?>
+		<div class="container tab-content card" >
+		<table class="table table-striped sombreado">
+			<thead>
+				<tr>
+                    <th colspan="6"><h3>Optativas</h3></th>
+                	<th>Orientación</th>
+                </tr>
+			</thead>
 
+            <tbody>
+				<?php 
+					foreach ($optativas as $row) 
+					{?>
+						<tr>
+							<td colspan="6">
+								<a href="<?= base_url('/materia/verMateria/'.$row->id_materia)?>">
+									<?=$row->optativa;?>
+								</a>
+							</td>
+							<td colspan="6">
+									<?=$row->orientacion;?>
+							</td>
+						</tr>	
+				  <?php } ?>
+					
+			</tbody>
+        </table>
+    	</div>
+
+	<!-- Materias Comunes -->
 	<!-- Tabla de carreras -->
+	<?php } else { ?>
 	<div class="container tab-content card" >
 		<table class="table table-striped sombreado">
-			<tr><h3><?= $asignatura[0]->nombre; ?></h3></tr>
+			<tr><h3><?= $materia[0]->nombre; ?></h3></tr>
 			<thead class="thead-escuela">
 				<tr>
 					<th><a >Carrera</a></th>
+					<?php if(isset($pr[0]->orientacion)) { ?><th><a>Orientación</a></th> <?php } ?>
 					<th><a >Programa</a></th>
 					<th><a >Año</a></th>
 					<th><a >Regimen</a></th>
@@ -25,16 +59,17 @@
 				<?php foreach ($pr as $key => $row) {?>
 					<tr> 
 						<td><?=$row->carrera;?></td>
+						<?php if(isset($row->orientacion)) { ?><td><?=$row->orientacion;?></td> <?php } ?>
 						<td>
 							<?php 
-								if (empty($programa[$key]->programa))
+								if (empty($row->programa))
 								{ 
 									echo "- - -"; 
 								} 
 								else 
 								{ 
 								?>	
-									<a href="<?= base_url($programa[$key]->programa); ?>" target="blank">
+									<a href="<?= base_url($row->programa); ?>" target="blank">
 										Ver Programa
 									</a>
 							<?php } ?>
@@ -42,13 +77,7 @@
 						<td><?=$row->anio;?></td>
 						<td><?=$row->regimen;?></td>
 						<td><?=$row->plan;?></td>
-						<?php if($row->horas_anuales>0) {?>
-							<td><?=$row->horas_anuales;?></td>
-						<?php }else if($row->horas_primer_cuat>0){ ?>
-							<td><?=$row->horas_primer_cuat;?></td>
-						<?php }else { ?>
-							<td><?=$row->horas_segundo_cuat;?></td>
-						<?php } ?>
+						<td><?=$row->hs_total;?></td>
 						
 					</tr>
 				<?php } ?>
@@ -68,6 +97,7 @@
                 </tr>
 			</thead>
 
+			<?php if(!empty($equipo)) { ?>
             <tbody>
 				<?php foreach ($equipo as $row) {?>
 					<tr> 
@@ -81,6 +111,14 @@
 					</tr>
 				<?php } ?>
 			</tbody>
+
+			<?php } else { ?>
+					<tbody>
+						<tr>
+							<td>A DETERMINAR</td>
+						</tr>
+					</tbody>
+			<?php } ?>
         </table>
     </div>
 	<!-- Fin Tabla Equipo -->
@@ -97,7 +135,7 @@
 			</thead>
         </table>
 
-		<!--<table class="table table-striped sombreado">
+		<table class="table table-striped sombreado">
 			<thead>
 				<tr>
                     <th colspan="6"><h3>Regularizada para Cursar</h3></th>
@@ -106,15 +144,15 @@
 
             <tbody>
 				<?php 
-					if(empty($regulCursar)) {echo "<tr><td colspan='6'>NINGUNA</td></tr>";}
+					if(empty($regulCursar)) {echo "<tr><td colspan='6'><hr></td></tr>";}
 					else
 					{
 						foreach ($regulCursar as $row) 
 						{?>
 							<tr>
 								<td colspan="6">
-									<a href="<?= base_url('/asignatura/verAsignatura/'.$row->id_asignatura)?>">
-										<?=$row->codigo;?> - <?=$row->correlativa;?>
+									<a href="<?= base_url('/materia/verMateria/'.$row->id_materia)?>">
+										<?=$row->id_materia;?> - <?=$row->correlativa;?>
 									</a>
 								</td>
 							</tr>	
@@ -132,22 +170,22 @@
 
             <tbody>
 				<?php 
-					if(empty($aprobadaCursar)) {echo "<tr><td colspan='6'>NINGUNA</td></tr>";}
+					if(empty($aprobadaCursar)) {echo "<tr><td colspan='6'><hr></td></tr>";}
 					else
 					{
 						foreach ($aprobadaCursar as $row) 
 						{?>
 							<tr>
 								<td colspan="6">
-									<a href="<?= base_url('/asignatura/verAsignatura/'.$row->id_asignatura)?>">
-										<?=$row->codigo;?> - <?=$row->correlativa;?>
+									<a href="<?= base_url('/materia/verMateria/'.$row->id_materia)?>">
+										<?=$row->id_materia;?> - <?=$row->correlativa;?>
 									</a>
 								</td>
 							</tr>	
 				  <?php }
 					} ?>
 			</tbody>
-        </table> -->
+        </table> 
 
 		<table class="table table-striped sombreado">
 			<thead>
@@ -158,15 +196,15 @@
 
             <tbody>
 				<?php 
-					if(empty($aprobadaRendir)) {echo "<tr><td colspan='6'>NINGUNA</td></tr>";}
+					if(empty($aprobadaRendir)) {echo "<tr><td colspan='6'><hr></td></tr>";}
 					else
 					{
 						foreach ($aprobadaRendir as $row) 
 						{?>
 							<tr>
 								<td colspan="6">
-									<a href="<?= base_url('/asignatura/verAsignatura/'.$row->id_asignatura)?>">
-										<?=$row->codigo;?> - <?=$row->correlativa;?>
+									<a href="<?= base_url('/materia/verMateria/'.$row->id_materia)?>">
+										<?=$row->id_materia;?> - <?=$row->correlativa;?>
 									</a>
 								</td>
 							</tr>	
@@ -176,7 +214,7 @@
         </table>
     </div>
 	<!-- Fin Tabla Correlatividades -->
-
+	<?php } ?>
 	<hr>
 
 </main>

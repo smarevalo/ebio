@@ -16,12 +16,12 @@
 
 		<div class="container tab-content card">
 		<a href="<?= base_url('data/'.$carrera[0]->plan_pdf)?>">Descargar Plan</a>
-			<div class="tab-pane fade in show active" id="panel1" role="tabpanel">
+			<div class="tab-pane fade" id="panel1" role="tabpanel">
 				<?=$carrera[0]->presentacion;?>
             </div>
 
 
-			<div class="tab-pane fade" id="panel2" role="tabpanel">
+			<div class="tab-pane fade in show active" id="panel2" role="tabpanel">
 
 				<table class="table table-hover">
                     <thead>
@@ -33,7 +33,7 @@
 							<th>Regimen</th>
 							<th>Hs Cuat 1</th>
 							<th>Hs Cuat 2</th>
-							<th>Hs Anuales</th>
+							<th>Hs Totales</th>
 						</tr>
                     </thead>
 
@@ -41,7 +41,7 @@
 						<?php foreach ($plan as $row) {?>
 							<tr> 
 								<td>
-									<a href="<?= base_url('/asignatura/verAsignatura/'.$row->id_asignatura)?>">
+									<a href="<?= base_url('/materia/verMateria/'.$row->id)?>">
 										<i class="fas fa-search-plus"></i>
 									</a>
 								</td>
@@ -49,11 +49,42 @@
 								<td><?=$row->nombre;?></td>
 								<td><?=$row->anio;?></td>
 								<td><?=$row->regimen;?></td>
-								<td><?php if ($row->horas_primer_cuat == 0) echo '-'; else echo $row->horas_primer_cuat?></td>
-								<td><?php if ($row->horas_segundo_cuat == 0) echo '-'; else echo $row->horas_segundo_cuat?></td>
-								<td><?php if ($row->horas_anuales == 0) echo '-'; else echo $row->horas_anuales?></td>
+								<td><?php if ($row->regid == 2) echo $row->horas; else echo '-'?></td>
+								<td><?php if ($row->regid == 3) echo $row->horas; else echo '-'?></td>
+								<td><?=$row->hs_total;?></td>
 							</tr>
 						<?php } ?>
+
+						<?php if(isset($orientaciones)){ ?>
+							<tr><td colspan="8" align="center"><b>ORIENTACIONES</b></td></tr>
+						<?php } ?>
+						
+						<?php foreach ($orientaciones as $value) {?>
+							<tr> 
+								<td colspan="8">
+									<b><?php echo $value->id.' - '.$value->nombre ; ?></b>
+								</td>
+							</tr> 
+							
+							<?php  ?>
+								<?php foreach ($orientacion[$value->id] as $row) {?>
+									<tr>
+										<td>
+										<a href="<?= base_url('/materia/verMateria/'.$row->id)?>">
+											<i class="fas fa-search-plus"></i>
+										</a>
+										</td>
+										<td><?=$row->codigo;?></td>
+										<td><?=$row->nombre;?></td>
+										<td><?=$row->anio;?></td>
+										<td><?=$row->regimen;?></td>
+										<td><?php if ($row->regid == 2) echo $row->horas; else echo '-'?></td>
+										<td><?php if ($row->regid == 3) echo $row->horas; else echo '-'?></td>
+										<td><?=$row->hs_total;?></td>
+										<?php } ?>
+									</tr>
+							<?php } ?>
+						
 					</tbody>
 				</table>
 

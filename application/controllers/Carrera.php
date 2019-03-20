@@ -24,7 +24,16 @@ class Carrera extends CI_Controller {
 	public function verCarrera($idCarrera)
 	{
 		$data['carrera'] = $this->Carrera_model->getCarrera($idCarrera);
-		$data['plan'] = $this->Carrera_model->getPlan($idCarrera);
+		$data['plan'] = $this->Carrera_model->getPlan($idCarrera);	
+		$data['orientaciones'] = $this->Carrera_model->getOrientaciones($data['plan'][0]->id);
+		
+		if(!empty($data['orientaciones']))
+		{
+			foreach ($data['orientaciones'] as $orientacion)
+			{
+				$data['orientacion'][$orientacion->id] = $this->Carrera_model->getPlanPorOrientacion($orientacion->id);
+			}
+		}
 
 		$this->load->view('head');
 		$this->load->view('nav');

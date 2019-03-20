@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Asignatura extends CI_Controller {
+class Materia extends CI_Controller {
 
 	function __construct(){
 		parent::__construct();
@@ -8,25 +8,34 @@ class Asignatura extends CI_Controller {
         $this->load->helper('url');
         $this->load->database(); //Aqui se carga el driver de la bd.
 		$this->load->library('Grocery_CRUD'); ////grocery_crud, Aqui se hace la carga de la libreria
-		$this->load->model('Asignatura_model');
+		$this->load->model('Materia_model');
     }
 
-	public function verAsignatura($idAsignatura)
+
+	public function verMateria($idMateria)
 	{
 		$this->load->view('head');
 		$this->load->view('nav');
 		
 		//Se obtienen datos del modelo
-		$data['asignatura'] = $this->Asignatura_model->getAsignatura($idAsignatura);
-		$data['pr'] = $this->Asignatura_model->getProgramaResumido($idAsignatura);
-		$data['programa'] = $this->Asignatura_model->getPrograma($idAsignatura);
-		$data['equipo'] = $this->Asignatura_model->getEquipo($idAsignatura);
-		$data['regulCursar'] = $this->Asignatura_model->getCorrelatividades($idAsignatura, 1);
-		$data['aprobadaCursar'] = $this->Asignatura_model->getCorrelatividades($idAsignatura, 2);
-		$data['aprobadaRendir'] = $this->Asignatura_model->getCorrelatividades($idAsignatura, 3);
+		$data['materia'] = $this->Materia_model->getMateria($idMateria);
+		
+		if($data['materia'][0]->id_tipo == '2')
+		{
+			$data['optativas'] = $this->Materia_model->getOptativas($idMateria);
+		}
+		else
+		{
+			$data['pr'] = $this->Materia_model->getProgramaResumido($idMateria);
+			$data['equipo'] = $this->Materia_model->getEquipo($idMateria);
+
+			$data['regulCursar'] = $this->Materia_model->getCorrelatividades($idMateria, 1);
+			$data['aprobadaCursar'] = $this->Materia_model->getCorrelatividades($idMateria, 2);
+			$data['aprobadaRendir'] = $this->Materia_model->getCorrelatividades($idMateria, 3);	
+		}
 
 		//Se cargan datos en la vista
-		$this->load->view('pages/asignaturaView', $data);
+		$this->load->view('pages/materiaView', $data);
 		$this->load->view('footer');
 	}
 
@@ -35,8 +44,8 @@ class Asignatura extends CI_Controller {
 	{
 		$crud = new Grocery_CRUD(); //grocery_crud
         $crud->set_theme('datatables'); //Aqui se selecciona la vista del crud. 
-        $crud->set_table('asignatura'); //Se hace la seleccion de la tabla
-		$crud->set_subject('Asignatura'); //Se le asigna un alias al crud    
+        $crud->set_table('Materia'); //Se hace la seleccion de la tabla
+		$crud->set_subject('Materia'); //Se le asigna un alias al crud    
 		
 		$crud->columns('id','nombre');
 
