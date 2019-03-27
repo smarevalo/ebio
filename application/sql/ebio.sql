@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 4.6.6deb5
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 20-03-2019 a las 03:07:10
--- Versión del servidor: 5.7.23
--- Versión de PHP: 7.2.10
+-- Servidor: localhost:3306
+-- Tiempo de generación: 27-03-2019 a las 09:37:17
+-- Versión del servidor: 5.7.25-0ubuntu0.18.04.2
+-- Versión de PHP: 7.2.15-0ubuntu0.18.04.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -28,17 +26,15 @@ SET time_zone = "+00:00";
 -- Estructura de tabla para la tabla `carrera`
 --
 
-DROP TABLE IF EXISTS `carrera`;
-CREATE TABLE IF NOT EXISTS `carrera` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `carrera` (
+  `id` int(11) NOT NULL,
   `plan` varchar(20) DEFAULT NULL,
   `nombre` varchar(80) DEFAULT NULL,
   `presentacion` blob,
   `perfil` blob,
   `plan_pdf` varchar(50) DEFAULT NULL,
-  `imagen` varchar(100) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED;
+  `imagen` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED;
 
 --
 -- Volcado de datos para la tabla `carrera`
@@ -53,16 +49,12 @@ INSERT INTO `carrera` (`id`, `plan`, `nombre`, `presentacion`, `perfil`, `plan_p
 -- Estructura de tabla para la tabla `ciclos`
 --
 
-DROP TABLE IF EXISTS `ciclos`;
-CREATE TABLE IF NOT EXISTS `ciclos` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `ciclos` (
+  `id` int(11) NOT NULL,
   `nombre` varchar(80) NOT NULL,
   `id_plan` int(11) NOT NULL,
-  `id_orientacion` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `id_plan` (`id_plan`),
-  KEY `id_orientacion` (`id_orientacion`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+  `id_orientacion` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `ciclos`
@@ -79,9 +71,8 @@ INSERT INTO `ciclos` (`id`, `nombre`, `id_plan`, `id_orientacion`) VALUES
 -- Estructura de tabla para la tabla `ciclo_materia`
 --
 
-DROP TABLE IF EXISTS `ciclo_materia`;
-CREATE TABLE IF NOT EXISTS `ciclo_materia` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `ciclo_materia` (
+  `id` int(11) NOT NULL,
   `id_ciclo` int(11) NOT NULL,
   `id_materia` int(11) NOT NULL,
   `id_regimen` int(11) NOT NULL,
@@ -89,12 +80,8 @@ CREATE TABLE IF NOT EXISTS `ciclo_materia` (
   `hs_total` int(11) NOT NULL,
   `programa` varchar(100) NOT NULL,
   `anio` int(11) NOT NULL,
-  `codigo` varchar(15) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `id_ciclo` (`id_ciclo`),
-  KEY `id_materia` (`id_materia`),
-  KEY `id_regimen` (`id_regimen`)
-) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=latin1;
+  `codigo` varchar(15) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `ciclo_materia`
@@ -166,8 +153,7 @@ INSERT INTO `ciclo_materia` (`id`, `id_ciclo`, `id_materia`, `id_regimen`, `hora
 -- Estructura de tabla para la tabla `ci_sessions`
 --
 
-DROP TABLE IF EXISTS `ci_sessions`;
-CREATE TABLE IF NOT EXISTS `ci_sessions` (
+CREATE TABLE `ci_sessions` (
   `id` varchar(40) NOT NULL,
   `ip_address` varchar(45) NOT NULL,
   `timestamp` int(10) UNSIGNED NOT NULL DEFAULT '0',
@@ -180,17 +166,12 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 -- Estructura de tabla para la tabla `correlativas`
 --
 
-DROP TABLE IF EXISTS `correlativas`;
-CREATE TABLE IF NOT EXISTS `correlativas` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `correlativas` (
+  `id` int(11) NOT NULL,
   `id_ciclo_materia` int(11) NOT NULL,
   `id_correlativa` int(11) NOT NULL,
-  `id_correlativa_tipo` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `id_correlativa` (`id_correlativa`),
-  KEY `id_ciclo` (`id_ciclo_materia`),
-  KEY `id_correlativa_tipo` (`id_correlativa_tipo`)
-) ENGINE=InnoDB AUTO_INCREMENT=298 DEFAULT CHARSET=latin1;
+  `id_correlativa_tipo` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `correlativas`
@@ -501,12 +482,10 @@ INSERT INTO `correlativas` (`id`, `id_ciclo_materia`, `id_correlativa`, `id_corr
 -- Estructura de tabla para la tabla `correlativas_tipo`
 --
 
-DROP TABLE IF EXISTS `correlativas_tipo`;
-CREATE TABLE IF NOT EXISTS `correlativas_tipo` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `descripcion` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED;
+CREATE TABLE `correlativas_tipo` (
+  `id` int(11) NOT NULL,
+  `descripcion` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED;
 
 --
 -- Volcado de datos para la tabla `correlativas_tipo`
@@ -523,19 +502,16 @@ INSERT INTO `correlativas_tipo` (`id`, `descripcion`) VALUES
 -- Estructura de tabla para la tabla `cvar`
 --
 
-DROP TABLE IF EXISTS `cvar`;
-CREATE TABLE IF NOT EXISTS `cvar` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `cvar` (
+  `id` int(11) NOT NULL,
   `id_docente` int(11) NOT NULL,
   `areas` varchar(500) DEFAULT NULL,
   `experticia` varchar(500) DEFAULT NULL,
   `grado` varchar(500) DEFAULT NULL,
   `especializacion` varchar(500) DEFAULT NULL,
   `maestria` varchar(500) DEFAULT NULL,
-  `doctorado` varchar(500) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `id_docente` (`id_docente`)
-) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=latin1;
+  `doctorado` varchar(500) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `cvar`
@@ -604,16 +580,12 @@ INSERT INTO `cvar` (`id`, `id_docente`, `areas`, `experticia`, `grado`, `especia
 -- Estructura de tabla para la tabla `docentes`
 --
 
-DROP TABLE IF EXISTS `docentes`;
-CREATE TABLE IF NOT EXISTS `docentes` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `docentes` (
+  `id` int(10) NOT NULL,
   `persona_id` bigint(20) NOT NULL,
   `id_docente_categoria` int(11) DEFAULT NULL,
-  `descripcion` blob,
-  PRIMARY KEY (`id`),
-  KEY `docente_categoria_idx` (`id_docente_categoria`),
-  KEY `persona_id` (`persona_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED;
+  `descripcion` blob
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED;
 
 --
 -- Volcado de datos para la tabla `docentes`
@@ -682,12 +654,10 @@ INSERT INTO `docentes` (`id`, `persona_id`, `id_docente_categoria`, `descripcion
 -- Estructura de tabla para la tabla `docente_categoria`
 --
 
-DROP TABLE IF EXISTS `docente_categoria`;
-CREATE TABLE IF NOT EXISTS `docente_categoria` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(30) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED;
+CREATE TABLE `docente_categoria` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(30) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED;
 
 --
 -- Volcado de datos para la tabla `docente_categoria`
@@ -707,13 +677,11 @@ INSERT INTO `docente_categoria` (`id`, `nombre`) VALUES
 -- Estructura de tabla para la tabla `estudiantes`
 --
 
-DROP TABLE IF EXISTS `estudiantes`;
-CREATE TABLE IF NOT EXISTS `estudiantes` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `estudiantes` (
+  `id` int(11) NOT NULL,
   `persona_id` bigint(20) NOT NULL,
   `legajo` varchar(50) NOT NULL,
-  `plan_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
+  `plan_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -722,12 +690,10 @@ CREATE TABLE IF NOT EXISTS `estudiantes` (
 -- Estructura de tabla para la tabla `grupos`
 --
 
-DROP TABLE IF EXISTS `grupos`;
-CREATE TABLE IF NOT EXISTS `grupos` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `grupos` (
+  `id` int(11) NOT NULL,
   `nombre` varchar(50) NOT NULL,
-  `abreviacion` varchar(20) NOT NULL,
-  PRIMARY KEY (`id`)
+  `abreviacion` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -736,13 +702,9 @@ CREATE TABLE IF NOT EXISTS `grupos` (
 -- Estructura de tabla para la tabla `grupo_permiso`
 --
 
-DROP TABLE IF EXISTS `grupo_permiso`;
-CREATE TABLE IF NOT EXISTS `grupo_permiso` (
+CREATE TABLE `grupo_permiso` (
   `grupo_id` int(11) NOT NULL,
-  `permiso_id` int(11) NOT NULL,
-  PRIMARY KEY (`grupo_id`,`permiso_id`),
-  KEY `permiso_id_grupo` (`permiso_id`),
-  KEY `grupo_id` (`grupo_id`)
+  `permiso_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -751,14 +713,11 @@ CREATE TABLE IF NOT EXISTS `grupo_permiso` (
 -- Estructura de tabla para la tabla `materias`
 --
 
-DROP TABLE IF EXISTS `materias`;
-CREATE TABLE IF NOT EXISTS `materias` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `materias` (
+  `id` int(11) NOT NULL,
   `nombre` varchar(50) DEFAULT NULL,
-  `id_tipo` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `tipo_id` (`id_tipo`)
-) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED;
+  `id_tipo` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED;
 
 --
 -- Volcado de datos para la tabla `materias`
@@ -830,12 +789,10 @@ INSERT INTO `materias` (`id`, `nombre`, `id_tipo`) VALUES
 -- Estructura de tabla para la tabla `materias_tipo`
 --
 
-DROP TABLE IF EXISTS `materias_tipo`;
-CREATE TABLE IF NOT EXISTS `materias_tipo` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(80) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+CREATE TABLE `materias_tipo` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(80) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `materias_tipo`
@@ -852,15 +809,11 @@ INSERT INTO `materias_tipo` (`id`, `nombre`) VALUES
 -- Estructura de tabla para la tabla `materia_docente`
 --
 
-DROP TABLE IF EXISTS `materia_docente`;
-CREATE TABLE IF NOT EXISTS `materia_docente` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `materia_docente` (
+  `id` int(11) NOT NULL,
   `id_ciclo_materia` int(11) NOT NULL,
-  `id_docente` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `id_ciclo` (`id_ciclo_materia`,`id_docente`),
-  KEY `cm_materia_docente` (`id_docente`)
-) ENGINE=InnoDB AUTO_INCREMENT=107 DEFAULT CHARSET=latin1;
+  `id_docente` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `materia_docente`
@@ -980,16 +933,11 @@ INSERT INTO `materia_docente` (`id`, `id_ciclo_materia`, `id_docente`) VALUES
 -- Estructura de tabla para la tabla `optativas`
 --
 
-DROP TABLE IF EXISTS `optativas`;
-CREATE TABLE IF NOT EXISTS `optativas` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `optativas` (
+  `id` int(11) NOT NULL,
   `id_origen` int(11) NOT NULL,
-  `id_optativa` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `id_origen` (`id_origen`),
-  KEY `id_origen_2` (`id_origen`),
-  KEY `optativa_cm` (`id_optativa`)
-) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=latin1;
+  `id_optativa` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `optativas`
@@ -1057,14 +1005,11 @@ INSERT INTO `optativas` (`id`, `id_origen`, `id_optativa`) VALUES
 -- Estructura de tabla para la tabla `orientaciones`
 --
 
-DROP TABLE IF EXISTS `orientaciones`;
-CREATE TABLE IF NOT EXISTS `orientaciones` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `orientaciones` (
+  `id` int(11) NOT NULL,
   `id_plan` int(11) NOT NULL,
-  `nombre` varchar(80) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `id_plan` (`id_plan`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+  `nombre` varchar(80) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `orientaciones`
@@ -1080,12 +1025,10 @@ INSERT INTO `orientaciones` (`id`, `id_plan`, `nombre`) VALUES
 -- Estructura de tabla para la tabla `permisos`
 --
 
-DROP TABLE IF EXISTS `permisos`;
-CREATE TABLE IF NOT EXISTS `permisos` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `permisos` (
+  `id` int(11) NOT NULL,
   `nombre` varchar(100) NOT NULL,
-  `descripcion` varchar(150) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `descripcion` varchar(150) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -1094,18 +1037,16 @@ CREATE TABLE IF NOT EXISTS `permisos` (
 -- Estructura de tabla para la tabla `persona`
 --
 
-DROP TABLE IF EXISTS `persona`;
-CREATE TABLE IF NOT EXISTS `persona` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `persona` (
+  `id` bigint(20) NOT NULL,
   `apellido` varchar(50) NOT NULL,
   `nombre` varchar(50) NOT NULL,
   `nombre_2` varchar(50) DEFAULT NULL,
   `dni` varchar(50) DEFAULT NULL,
   `cuit` varchar(50) DEFAULT NULL,
   `email1` varchar(50) DEFAULT NULL,
-  `email2` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=latin1;
+  `email2` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `persona`
@@ -1133,7 +1074,7 @@ INSERT INTO `persona` (`id`, `apellido`, `nombre`, `nombre_2`, `dni`, `cuit`, `e
 (19, 'CORDOBA MURUAGA', 'SILVINA', 'MARIA TERESA', NULL, '27-22073368-3', 'silvina0329@hotmail.com', NULL),
 (20, 'CORZO', 'FERNANDO', 'LIVIO', NULL, '20-28766588-2', 'fcorzo@undec.edu.ar', 'liviocorzo@hotmail.com'),
 (21, 'DANTUR JURI', 'MARIA', 'JULIA', NULL, '27-24671276-5', 'jdantur@undec.edu.ar', 'juliadantur@yahoo.com.ar'),
-(22, 'D\'HIRIART', 'SOFÍA', NULL, NULL, '27-30442218-7', 'sofiadiriart@gmail.com', NULL),
+(22, 'DHIRIART', 'SOFÍA', NULL, NULL, '27-30442218-7', 'sofiadiriart@gmail.com', NULL),
 (23, 'ELIAS', 'GABRIELA', 'DEL VALLE', NULL, '27-24409581-5', 'gelias@undec.edu.ar', 'juturna_n@yahoo.com.ar'),
 (24, 'ESPINOS', 'DIEGO', 'ADRIANO', NULL, '20-24594732-2', 'despinos@undec.edu.ar', NULL),
 (25, 'ESPINOSA', 'MARTIN', 'SEBASTIAN', NULL, '20-27458592-8', 'mespinosa@undec.edu.ar', 'mespinosa_@hotmail.com'),
@@ -1175,14 +1116,11 @@ INSERT INTO `persona` (`id`, `apellido`, `nombre`, `nombre_2`, `dni`, `cuit`, `e
 -- Estructura de tabla para la tabla `planes`
 --
 
-DROP TABLE IF EXISTS `planes`;
-CREATE TABLE IF NOT EXISTS `planes` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `planes` (
+  `id` int(11) NOT NULL,
   `id_carrera` int(11) NOT NULL,
-  `nombre` varchar(80) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `id_carrera` (`id_carrera`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+  `nombre` varchar(80) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `planes`
@@ -1197,12 +1135,10 @@ INSERT INTO `planes` (`id`, `id_carrera`, `nombre`) VALUES
 -- Estructura de tabla para la tabla `regimen`
 --
 
-DROP TABLE IF EXISTS `regimen`;
-CREATE TABLE IF NOT EXISTS `regimen` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(30) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+CREATE TABLE `regimen` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `regimen`
@@ -1219,15 +1155,11 @@ INSERT INTO `regimen` (`id`, `nombre`) VALUES
 -- Estructura de tabla para la tabla `titulos`
 --
 
-DROP TABLE IF EXISTS `titulos`;
-CREATE TABLE IF NOT EXISTS `titulos` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `titulos` (
+  `id` int(11) NOT NULL,
   `id_plan` int(11) NOT NULL,
   `nombre` varchar(50) NOT NULL,
-  `id_orientacion` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `id_plan` (`id_plan`),
-  KEY `id_orientacion` (`id_orientacion`)
+  `id_orientacion` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -1236,9 +1168,8 @@ CREATE TABLE IF NOT EXISTS `titulos` (
 -- Estructura de tabla para la tabla `users`
 --
 
-DROP TABLE IF EXISTS `users`;
-CREATE TABLE IF NOT EXISTS `users` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
   `username` varchar(255) NOT NULL DEFAULT '',
   `password` varchar(255) NOT NULL DEFAULT '',
   `persona_id` bigint(20) NOT NULL,
@@ -1247,11 +1178,8 @@ CREATE TABLE IF NOT EXISTS `users` (
   `updated_at` datetime DEFAULT NULL,
   `is_admin` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
   `is_confirmed` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
-  `is_deleted` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`),
-  KEY `persona_id` (`persona_id`),
-  KEY `persona_id_2` (`persona_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+  `is_deleted` tinyint(1) UNSIGNED NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `users`
@@ -1266,13 +1194,9 @@ INSERT INTO `users` (`id`, `username`, `password`, `persona_id`, `avatar`, `crea
 -- Estructura de tabla para la tabla `user_grupo`
 --
 
-DROP TABLE IF EXISTS `user_grupo`;
-CREATE TABLE IF NOT EXISTS `user_grupo` (
+CREATE TABLE `user_grupo` (
   `user_id` int(11) NOT NULL,
-  `grupo_id` int(11) NOT NULL,
-  PRIMARY KEY (`user_id`,`grupo_id`),
-  KEY `grupo_id_user` (`grupo_id`),
-  KEY `user_id` (`user_id`)
+  `grupo_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -1281,14 +1205,296 @@ CREATE TABLE IF NOT EXISTS `user_grupo` (
 -- Estructura de tabla para la tabla `user_permiso`
 --
 
-DROP TABLE IF EXISTS `user_permiso`;
-CREATE TABLE IF NOT EXISTS `user_permiso` (
+CREATE TABLE `user_permiso` (
   `user_id` int(11) NOT NULL,
-  `permiso_id` int(11) NOT NULL,
-  KEY `user_id_permiso` (`user_id`),
-  KEY `permiso_id_user` (`permiso_id`)
+  `permiso_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `carrera`
+--
+ALTER TABLE `carrera`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `ciclos`
+--
+ALTER TABLE `ciclos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_plan` (`id_plan`),
+  ADD KEY `id_orientacion` (`id_orientacion`);
+
+--
+-- Indices de la tabla `ciclo_materia`
+--
+ALTER TABLE `ciclo_materia`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_ciclo` (`id_ciclo`),
+  ADD KEY `id_materia` (`id_materia`),
+  ADD KEY `id_regimen` (`id_regimen`);
+
+--
+-- Indices de la tabla `correlativas`
+--
+ALTER TABLE `correlativas`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_correlativa` (`id_correlativa`),
+  ADD KEY `id_ciclo` (`id_ciclo_materia`),
+  ADD KEY `id_correlativa_tipo` (`id_correlativa_tipo`);
+
+--
+-- Indices de la tabla `correlativas_tipo`
+--
+ALTER TABLE `correlativas_tipo`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `cvar`
+--
+ALTER TABLE `cvar`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_docente` (`id_docente`);
+
+--
+-- Indices de la tabla `docentes`
+--
+ALTER TABLE `docentes`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `docente_categoria_idx` (`id_docente_categoria`),
+  ADD KEY `persona_id` (`persona_id`);
+
+--
+-- Indices de la tabla `docente_categoria`
+--
+ALTER TABLE `docente_categoria`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `estudiantes`
+--
+ALTER TABLE `estudiantes`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `grupos`
+--
+ALTER TABLE `grupos`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `grupo_permiso`
+--
+ALTER TABLE `grupo_permiso`
+  ADD PRIMARY KEY (`grupo_id`,`permiso_id`),
+  ADD KEY `permiso_id_grupo` (`permiso_id`),
+  ADD KEY `grupo_id` (`grupo_id`);
+
+--
+-- Indices de la tabla `materias`
+--
+ALTER TABLE `materias`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `tipo_id` (`id_tipo`);
+
+--
+-- Indices de la tabla `materias_tipo`
+--
+ALTER TABLE `materias_tipo`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `materia_docente`
+--
+ALTER TABLE `materia_docente`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_ciclo` (`id_ciclo_materia`,`id_docente`),
+  ADD KEY `cm_materia_docente` (`id_docente`);
+
+--
+-- Indices de la tabla `optativas`
+--
+ALTER TABLE `optativas`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_origen` (`id_origen`),
+  ADD KEY `id_origen_2` (`id_origen`),
+  ADD KEY `optativa_cm` (`id_optativa`);
+
+--
+-- Indices de la tabla `orientaciones`
+--
+ALTER TABLE `orientaciones`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_plan` (`id_plan`);
+
+--
+-- Indices de la tabla `permisos`
+--
+ALTER TABLE `permisos`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `persona`
+--
+ALTER TABLE `persona`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `planes`
+--
+ALTER TABLE `planes`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_carrera` (`id_carrera`);
+
+--
+-- Indices de la tabla `regimen`
+--
+ALTER TABLE `regimen`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `titulos`
+--
+ALTER TABLE `titulos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_plan` (`id_plan`),
+  ADD KEY `id_orientacion` (`id_orientacion`);
+
+--
+-- Indices de la tabla `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `persona_id` (`persona_id`),
+  ADD KEY `persona_id_2` (`persona_id`);
+
+--
+-- Indices de la tabla `user_grupo`
+--
+ALTER TABLE `user_grupo`
+  ADD PRIMARY KEY (`user_id`,`grupo_id`),
+  ADD KEY `grupo_id_user` (`grupo_id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
+-- Indices de la tabla `user_permiso`
+--
+ALTER TABLE `user_permiso`
+  ADD KEY `user_id_permiso` (`user_id`),
+  ADD KEY `permiso_id_user` (`permiso_id`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `carrera`
+--
+ALTER TABLE `carrera`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT de la tabla `ciclos`
+--
+ALTER TABLE `ciclos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT de la tabla `ciclo_materia`
+--
+ALTER TABLE `ciclo_materia`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+--
+-- AUTO_INCREMENT de la tabla `correlativas`
+--
+ALTER TABLE `correlativas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=298;
+--
+-- AUTO_INCREMENT de la tabla `correlativas_tipo`
+--
+ALTER TABLE `correlativas_tipo`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT de la tabla `cvar`
+--
+ALTER TABLE `cvar`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+--
+-- AUTO_INCREMENT de la tabla `docentes`
+--
+ALTER TABLE `docentes`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+--
+-- AUTO_INCREMENT de la tabla `docente_categoria`
+--
+ALTER TABLE `docente_categoria`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT de la tabla `estudiantes`
+--
+ALTER TABLE `estudiantes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `grupos`
+--
+ALTER TABLE `grupos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `materias`
+--
+ALTER TABLE `materias`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+--
+-- AUTO_INCREMENT de la tabla `materias_tipo`
+--
+ALTER TABLE `materias_tipo`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT de la tabla `materia_docente`
+--
+ALTER TABLE `materia_docente`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=107;
+--
+-- AUTO_INCREMENT de la tabla `optativas`
+--
+ALTER TABLE `optativas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+--
+-- AUTO_INCREMENT de la tabla `orientaciones`
+--
+ALTER TABLE `orientaciones`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT de la tabla `permisos`
+--
+ALTER TABLE `permisos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `persona`
+--
+ALTER TABLE `persona`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+--
+-- AUTO_INCREMENT de la tabla `planes`
+--
+ALTER TABLE `planes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT de la tabla `regimen`
+--
+ALTER TABLE `regimen`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT de la tabla `titulos`
+--
+ALTER TABLE `titulos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- Restricciones para tablas volcadas
 --
@@ -1366,7 +1572,6 @@ ALTER TABLE `user_grupo`
 ALTER TABLE `user_permiso`
   ADD CONSTRAINT `permiso_id_user` FOREIGN KEY (`permiso_id`) REFERENCES `permisos` (`id`),
   ADD CONSTRAINT `user_id_permiso` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
