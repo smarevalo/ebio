@@ -69,7 +69,7 @@
 								else 
 								{ 
 								?>	
-									<a href="<?= base_url($row->programa); ?>" target="blank">
+									<a href="<?= base_url('data/biologia/'.$row->programa); ?>" target="blank">
 										Ver Programa
 									</a>
 							<?php } ?>

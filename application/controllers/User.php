@@ -19,6 +19,7 @@ class User extends CI_Controller {
 		parent::__construct();
 		$this->load->library(array('session'));
 		$this->load->helper(array('url'));
+		redirect('/'); //Agregado para produccion
 		$this->load->model('user_model');
 		$this->load->library('Grocery_CRUD');
 		

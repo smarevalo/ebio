@@ -35,7 +35,8 @@ class Docente extends CI_Controller {
 		
 		//Se obtienen datos del modelo
 		$data['docente'] = $this->Docente_model->getPerfil($idDocente);
-
+		$data['docente'][0]->experticia = $this->sentence_cap(". ", $data['docente'][0]->experticia);
+		//var_dump($data['docente'][0]->experticia); exit();
 		//Se cargan datos en la vista
 		$this->load->view('pages/docenteView', $data);
 		$this->load->view('footer');
@@ -75,6 +76,17 @@ class Docente extends CI_Controller {
 		
 	}	
 	
+	function sentence_cap($impexp, $sentence_split){
+		$textbad =explode($impexp, $sentence_split);
+		$newtext = array();
+		foreach($textbad as $sentence){
+			$sentencegood=ucfirst(mb_strtolower($sentence, 'utf-8'));
+			$newtext[] = $sentencegood;
+		}
+		
+		$textgood = implode($impexp, $newtext);
+		return $textgood;
+	}
 
 }
 

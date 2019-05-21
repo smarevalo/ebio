@@ -33,7 +33,10 @@ class Docente_model  extends CI_Model  {
 					INNER JOIN persona p ON  p.id = d.persona_id
 					WHERE d.id = '.$idDocente.' LIMIT 1');
 		return $query->result();
-    }
+		}
+		
+
+		
 }
 
 ?>
