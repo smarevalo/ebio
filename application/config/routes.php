@@ -49,13 +49,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
-
-$route['register'] = 'user/register';
-$route['login'] = 'user/login';
-$route['logout'] = 'user/logout';
-
-$route['(:any)'] = 'frontend/$1';
-
-$route['default_controller'] = 'carrera' ;// modificado 'welcome';
-$route['404_override'] = '';
+$route['default_controller'] = 'frontend/carrera';
+$route['404_override'] = 'frontend/error404';
 $route['translate_uri_dashes'] = FALSE;
+
+//Login
+$route['login'] = "auth/login";
+$route['logout'] = "auth/logout";
+
+//Frontend
+$route['carrera/(:num)'] = "frontend/carrera/verCarrera/$1";
+$route['calendar/(:num)/(:num)'] = "frontend/carrera/index/$1/$2";
+$route['docente/(:num)'] = "frontend/docente/verDocente/$1";
+$route['materia/(:num)'] = "frontend/materia/verMateria/$1";
+$route['docentes'] = "frontend/docente/index";
+
+$route['publicaciones/(:num)'] = "frontend/publicaciones/index/$1";
+$route['cronograma'] = "frontend/cursos/cronograma/";
+$route['publicacion/(:num)'] = "frontend/publicaciones/verPublicacion/$1";
+
+$route['abm/proyecto/(:num)'] = "abm/proyecto/index/$1";
+$route['publicacion/(:num)/(:num)/(:num)'] = "frontend/publicaciones/verPublicacionesPorDia/$1/$2/$3";

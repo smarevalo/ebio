@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://localhost/ebio/';
+$config['base_url'] = 'http://'.$_SERVER["HTTP_HOST"].'/ebio/';
 
 /*
 |--------------------------------------------------------------------------
@@ -35,7 +35,7 @@ $config['base_url'] = 'http://localhost/ebio/';
 | variable so that it is blank.
 |
 */
-$config['index_page'] = ''; // modificado 'index.php';
+$config['index_page'] = '';
 
 /*
 |--------------------------------------------------------------------------
@@ -324,7 +324,7 @@ $config['cache_query_string'] = FALSE;
 | https://codeigniter.com/user_guide/libraries/encryption.html
 |
 */
-$config['encryption_key'] = 'opihugyv8765r43w5e6t6yutguohilhngui7yfty'; // modificado = '';
+$config['encryption_key'] = '';
 
 /*
 |--------------------------------------------------------------------------
@@ -521,3 +521,17 @@ $config['rewrite_short_tags'] = FALSE;
 | Array:		array('10.0.1.200', '192.168.5.0/24')
 */
 $config['proxy_ips'] = '';
+
+/*
+|--------------------------------------------------------------------------
+| Set Modules Location
+|--------------------------------------------------------------------------
+|
+| Modules::run() output is buffered, so any data returned or output directly 
+| from the controller is caught and returned to the caller. In particular,
+| $this->load->view() can be used as you would in a normal controller,
+| without the need for return.
+*/
+$config['modules_locations'] = array(
+	APPPATH.'modules/' => '../modules/',
+);
